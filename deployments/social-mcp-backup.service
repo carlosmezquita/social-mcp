@@ -1,0 +1,8 @@
+[Unit]
+Description=Snapshot Social MCP data
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/social-mcp-backup
+UMask=0077
+Nice=10

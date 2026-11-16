@@ -1,0 +1,21 @@
+social.example.com {
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+	}
+
+	@social path /mcp /api/* /connect/* /oauth/* /public/media/* /.well-known/oauth-protected-resource /.well-known/oauth-protected-resource/mcp
+	handle @social {
+		reverse_proxy 127.0.0.1:8080 {
+			flush_interval -1
+			transport http {
+				dial_timeout 3s
+				response_header_timeout 100s
+			}
+		}
+	}
+	handle {
+		respond 404
+	}
+}

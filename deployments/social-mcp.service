@@ -1,0 +1,33 @@
+[Unit]
+Description=Social MCP publishing service
+Wants=network-online.target
+After=network-online.target social-mcp-waha-firewall.service
+
+[Service]
+Type=simple
+User=social-mcp
+Group=social-mcp
+ExecStart=/usr/local/bin/social-mcp
+EnvironmentFile=/etc/social-mcp/env
+WorkingDirectory=/var/lib/social-mcp
+StateDirectory=social-mcp
+StateDirectoryMode=0700
+UMask=0077
+Restart=on-failure
+RestartSec=5s
+TimeoutStopSec=30s
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+CapabilityBoundingSet=
+
+[Install]
+WantedBy=multi-user.target
